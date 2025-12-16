@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tabs - Tab Master Pro</title>
+
+  <!-- AlphaTab script -->
+  <script src="https://cdn.jsdelivr.net/npm/@coderline/alphatab/dist/alphaTab.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    nav {
+      background-color: #222;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="tabs.html">Tabs</a>
+    <a href="ai-tools.html">AI Tools</a>
+    <a href="youtube-ai.html">YouTube AI</a>
+  </nav>
+
+  <h1>Tabs</h1>
+  <p>Below is your first displayed tab:</p>
+
+  <!-- AlphaTab viewer -->
+  <div id="alphaTab" style="height: 600px; background: white; padding: 20px;"></div>
+
+  <!-- AlphaTab loader -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const at = new alphaTab.AlphaTabApi(document.querySelector("#alphaTab"), {
+        file: "example.gp5"
+      });
+    });
+  </script>
+</body>
+</html>
