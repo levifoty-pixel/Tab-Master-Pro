@@ -1879,28 +1879,7 @@ E|--3------------------------3-------"></textarea>
     const converter = document.getElementById('fileConverter');
     const converterHeader = document.getElementById('fileConverterHeader');
     if (converter && converterHeader) {
-      let isDragging = false;
-      let offsetX = 0, offsetY = 0;
-
-      converterHeader.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - converter.getBoundingClientRect().left;
-        offsetY = e.clientY - converter.getBoundingClientRect().top;
-        converter.style.cursor = 'grabbing';
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        converter.style.left = (e.clientX - offsetX) + 'px';
-        converter.style.top = (e.clientY - offsetY) + 'px';
-        converter.style.bottom = 'auto';
-        converter.style.right = 'auto';
-      });
-
-      document.addEventListener('mouseup', () => {
-        isDragging = false;
-        converter.style.cursor = 'grab';
-      });
+    
     }
 
     const converterFile = document.getElementById('converterFile');
