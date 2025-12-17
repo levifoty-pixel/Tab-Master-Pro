@@ -46,6 +46,29 @@
       margin-bottom: 30px;
     }
 
+    .file-input-wrapper {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      background-color: #222;
+      border: 1px solid #444;
+      padding: 10px 15px;
+      color: #eee;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      cursor: pointer;
+      height: 100%;
+      width: 100%;
+    }
+
     button {
       background-color: #e50914;
       color: white;
@@ -61,12 +84,25 @@
       background-color: #ff1a25;
     }
 
-    input[type="file"] {
-      background: #222;
-      color: #eee;
-      padding: 10px;
+    #progressBar {
+      width: 100%;
+      background-color: #333;
       border-radius: 6px;
-      border: 1px solid #444;
+      margin-top: 15px;
+      height: 20px;
+      overflow: hidden;
+      display: none;
+    }
+
+    #progressFill {
+      height: 100%;
+      width: 0%;
+      background-color: #e50914;
+      transition: width 0.3s ease;
+    }
+
+    #results {
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -89,9 +125,19 @@
   <h2>Stem Separator</h2>
   <div class="tool-box">
     <p>Upload a song file (MP3 or WAV) to separate vocals, drums, bass, and more.</p>
-    <input type="file" id="audioFile" accept=".mp3,.wav" />
+
+    <label class="file-input-wrapper">
+      Choose File
+      <input type="file" id="audioFile" accept=".mp3,.wav" />
+    </label>
+
     <button onclick="processAudio()">Separate Stems</button>
-    <div id="results" style="margin-top: 15px;"></div>
+
+    <div id="progressBar">
+      <div id="progressFill"></div>
+    </div>
+
+    <div id="results"></div>
   </div>
 
   <script>
@@ -104,12 +150,23 @@
         return;
       }
 
-      document.getElementById("results").innerHTML = `
-        <p>Processing "${file.name}"...</p>
-        <p>(This is a placeholder — AI processing will be added soon.)</p>
-      `;
+      document.getElementById("results").innerHTML = `<p>Processing "${file.name}"...</p>`;
+      document.getElementById("progressBar").style.display = "block";
+      document.getElementById("progressFill").style.width = "0%";
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          document.getElementById("results").innerHTML += `
+            <p>(This is a placeholder — AI processing will be added soon.)</p>
+          `;
+        }
+        document.getElementById("progressFill").style.width = progress + "%";
+      }, 300);
     }
   </script>
-
 </body>
 </html>
