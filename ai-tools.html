@@ -2,11 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Tabs - Tab Master Pro</title>
-
-  <!-- AlphaTab script -->
-  <script src="https://cdn.jsdelivr.net/npm/@coderline/alphatab/dist/alphaTab.min.js"></script>
-
+  <title>AI Tools - Tab Master Pro</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -29,9 +25,14 @@
     nav a:hover {
       text-decoration: underline;
     }
+    .tool-box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
-
 <body>
   <nav>
     <a href="index.html">Home</a>
@@ -40,19 +41,10 @@
     <a href="youtube-ai.html">YouTube AI</a>
   </nav>
 
-  <h1>Tabs</h1>
-  <p>Below is your first displayed tab:</p>
-
-  <!-- AlphaTab viewer -->
-  <div id="alphaTab" style="height: 600px; background: white; padding: 20px;"></div>
-
-  <!-- AlphaTab loader -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const at = new alphaTab.AlphaTabApi(document.querySelector("#alphaTab"), {
-        file: "example.gp5"
-      });
-    });
-  </script>
+  <h1>AI Tools</h1>
+  <div class="tool-box">
+    <p>This is where your AI-powered music tools will live.</p>
+    <p>Coming soon: stem separation, audio-to-MIDI, tab generation, and more.</p>
+  </div>
 </body>
 </html>
