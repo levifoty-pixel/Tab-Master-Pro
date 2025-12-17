@@ -452,12 +452,28 @@
     }
 
     .style-chip {
-      border-radius: 999px;
-      padding: 2px 7px;
-      font-size: 0.76rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      cursor: pointer;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.18));
+  border: 1px solid var(--accent);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.style-chip:hover {
+  background: var(--accent-strong);
+  color: #fff;
+  box-shadow: 0 0 6px rgba(255, 122, 89, 0.6);
+}
+
+.style-chip.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 122, 89, 0.8);
+}
+
     }
 
     .style-chip.active {
