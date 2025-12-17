@@ -645,24 +645,21 @@
     .tabs-editor {
       font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       min-height: 140px;
-      font-size: 0.76rem;
-    }
 
-    /* Floating file converter */
-    #fileConverter {
-      position: fixed;
-      bottom: 16px;
-      right: 16px;
-      width: 260px;
-      background: rgba(10, 10, 20, 0.96);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
-      padding: 10px 12px;
-      font-size: 0.82rem;
-      z-index: 50;
-      cursor: grab;
     }
+      
+      font-size: 0.76rem;
+    #fileConverter {
+  position: relative;
+  width: 100%;
+  background: rgba(10, 10, 20, 0.96);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  margin-top: 12px;
+}
 
     #fileConverterHeader {
       display: flex;
