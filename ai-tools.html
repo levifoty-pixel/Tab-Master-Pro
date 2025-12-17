@@ -48,3 +48,26 @@
   </div>
 </body>
 </html>
+<h2>Stem Separator</h2>
+<div class="tool-box">
+  <p>Upload a song file (MP3 or WAV) to separate vocals, drums, bass, and more.</p>
+  <input type="file" id="audioFile" accept=".mp3,.wav" />
+  <button onclick="processAudio()">Separate Stems</button>
+  <div id="results"></div>
+</div>
+<script>
+  function processAudio() {
+    const fileInput = document.getElementById("audioFile");
+    const file = fileInput.files[0];
+    if (!file) {
+      alert("Please upload a file first.");
+      return;
+    }
+
+    document.getElementById("results").innerHTML = `
+      <p>Processing "${file.name}"...</p>
+      <p>(This is a placeholder — AI processing will be added soon.)</p>
+    `;
+  }
+</script>
+
