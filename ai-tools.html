@@ -1,299 +1,1120 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>AI Tools - Tab Master Pro</title>
-
+  <meta charset="UTF-8" />
+  <title>Tab Master Pro - Studio</title>
   <style>
+    /* GLOBAL */
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #111;
       margin: 0;
-      padding: 20px;
-      color: #eee;
-    }
-
-    nav {
-      background-color: #000;
-      padding: 12px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #e50914;
-    }
-
-    nav a {
-      color: #eee;
-      text-decoration: none;
-      margin-right: 20px;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-
-    nav a:hover {
-      color: #e50914;
-    }
-
-    h1, h2 {
-      color: #e50914;
-      margin-bottom: 10px;
-    }
-
-    .tool-box {
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      border: 1px solid #333;
-      margin-bottom: 30px;
-    }
-
-    .file-input-wrapper {
-      display: inline-block;
-      position: relative;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: radial-gradient(circle at top, #ff4b2b 0, #111 45%, #050509 100%);
+      color: #f5f5f5;
+      display: flex;
+      height: 100vh;
       overflow: hidden;
-      border-radius: 6px;
-      background-color: #222;
-      border: 1px solid #444;
-      padding: 10px 15px;
-      color: #eee;
-      cursor: pointer;
-      margin-right: 10px;
     }
 
-    #fileLabel {
-      pointer-events: none;
-      font-size: 0.95em;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* LAYOUT */
+
+    .sidebar {
+      width: 220px;
+      background: rgba(10, 10, 20, 0.96);
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      padding: 16px 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff512f, #dd2476);
+      text-align: center;
+    }
+
+    .nav-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin: 8px 8px 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 2px 4px;
+      font-size: 0.95rem;
+      transition: background 0.18s ease, transform 0.12s ease;
+      gap: 8px;
+    }
+
+    .nav-item span.icon {
+      width: 18px;
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, #ff512f55, #dd247655);
+      transform: translateY(-1px);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-separator {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin: 10px 4px;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      font-size: 0.8rem;
+      opacity: 0.7;
+      padding: 6px 8px;
+    }
+
+    .main {
+      flex: 1;
+      padding: 18px 22px;
+      overflow-y: auto;
+      background: radial-gradient(circle at top left, #ff512f11 0, transparent 40%),
+                  radial-gradient(circle at bottom right, #dd247611 0, transparent 40%);
+    }
+
+    .main-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* PANELS */
+
+    .hero {
+      background: linear-gradient(135deg, rgba(255, 81, 47, 0.7), rgba(221, 36, 118, 0.7));
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-left h1 {
+      margin: 0 0 6px;
+      font-size: 1.7rem;
+    }
+
+    .hero-left p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .hero-tags {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      min-width: 190px;
+    }
+
+    .hero-cta button {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .hero-cta button.primary {
+      background: #0b0b10;
+      color: #fff;
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-cta button.secondary {
+      background: rgba(0, 0, 0, 0.16);
+      color: #f5f5f5;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .hero-cta button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.8);
+    }
+
+    /* STUDIO PANELS */
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .panel {
+      background: radial-gradient(circle at top, #222 0, #15151b 55%, #101017 100%);
+      border-radius: 14px;
+      padding: 14px 16px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 81, 47, 0.15);
+      border: 1px solid rgba(255, 81, 47, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .panel-body {
+      font-size: 0.88rem;
       opacity: 0.9;
     }
 
-    .file-input-wrapper input[type="file"] {
-      position: absolute;
-      left: 0;
-      top: 0;
-      opacity: 0;
-      cursor: pointer;
-      height: 100%;
+    .hidden {
+      display: none !important;
+    }
+
+    /* SONG GENERATOR */
+
+    .field-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.75;
+      margin: 8px 0 4px;
+    }
+
+    textarea {
       width: 100%;
+      min-height: 80px;
+      resize: vertical;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(5, 5, 10, 0.9);
+      color: #f5f5f5;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
     }
 
-    button {
-      background-color: #e50914;
-      color: white;
+    textarea:focus {
+      border-color: #ff512f;
+      box-shadow: 0 0 0 1px rgba(255, 81, 47, 0.4);
+    }
+
+    select, input[type="text"], input[type="url"] {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(5, 5, 10, 0.9);
+      color: #f5f5f5;
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      border-color: #ff512f;
+      box-shadow: 0 0 0 1px rgba(255, 81, 47, 0.4);
+    }
+
+    .btn {
       border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-size: 1em;
+      border-radius: 999px;
+      padding: 8px 14px;
       cursor: pointer;
-      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      background: linear-gradient(135deg, #ff512f, #dd2476);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      transition: transform 0.12s ease, box-shadow 0.15s ease, filter 0.15s ease;
     }
 
-    button:hover {
-      background-color: #ff1a25;
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
     }
 
-    #progressBar {
-      width: 250px;
-      background-color: #333;
-      border-radius: 6px;
-      margin-top: 15px;
-      height: 14px;
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .progress-bar {
+      width: 100%;
+      background-color: #282832;
+      border-radius: 999px;
+      margin-top: 8px;
+      height: 12px;
       overflow: hidden;
       display: none;
     }
 
-    #progressFill {
+    .progress-fill {
       height: 100%;
       width: 0%;
-      background-color: #e50914;
-      transition: width 0.1s linear;
+      background: linear-gradient(90deg, #ff512f, #ffb347);
+      transition: width 0.12s linear;
+      box-shadow: 0 0 10px rgba(255, 81, 47, 0.7);
     }
 
-    #results {
-      margin-top: 15px;
+    .tiny {
+      font-size: 0.78rem;
+      opacity: 0.75;
+      margin-top: 4px;
     }
 
-    /* Horizontal DAW */
-    #daw {
-      background: #1a1a1a;
-      padding: 20px;
+    .song-output {
+      margin-top: 10px;
+      padding: 10px;
       border-radius: 10px;
-      border: 1px solid #333;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      max-height: 170px;
+      overflow-y: auto;
+      font-size: 0.87rem;
+      line-height: 1.4;
+    }
+
+    /* STEM SEPARATOR PANEL */
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .file-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 0.8rem;
+      margin-top: 6px;
+    }
+
+    .file-input-hidden {
+      display: none;
+    }
+
+    /* TABS STUDIO */
+
+    .tabs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .tabs-box {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      padding: 8px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-family: monospace;
+      font-size: 0.85rem;
+      min-height: 120px;
+      white-space: pre;
       overflow-x: auto;
-      white-space: nowrap;
     }
 
-    .timeline {
+    .tabs-toolbar {
       display: flex;
-      align-items: center;
-      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 0.82rem;
     }
 
-    .tick {
-      width: 60px;
-      text-align: center;
-      font-size: 0.8em;
-      color: #aaa;
+    /* HORIZONTAL DAW */
+
+    .daw-shell {
+      margin-top: 8px;
+      background: radial-gradient(circle at top left, #2b2b36 0, #11121a 60%, #050509 100%);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.8);
     }
 
-    .track-row {
+    .daw-header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      font-size: 0.84rem;
+      margin-bottom: 6px;
     }
 
-    .track-label {
-      width: 100px;
-      color: #e50914;
-      font-weight: bold;
-    }
-
-    .track-block {
-      height: 30px;
-      background-color: #e50914;
-      border-radius: 4px;
-      margin-left: 5px;
-      width: 300px;
-    }
-
-    #transport {
-      margin-top: 20px;
-    }
-
-    #transport button {
-      background-color: #e50914;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
+    .daw-header-left span {
       margin-right: 10px;
+      opacity: 0.86;
     }
 
-    #transport button:hover {
-      background-color: #ff1a25;
+    .daw-timeline {
+      position: relative;
+      border-radius: 8px;
+      background: #15151f;
+      padding: 4px 6px 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    #mixerStatus {
-      margin-top: 15px;
+    .daw-ruler {
+      display: flex;
+      font-size: 0.75rem;
+      color: #aaa;
+      margin-bottom: 4px;
+    }
+
+    .daw-ruler div {
+      width: 70px;
+      text-align: center;
+    }
+
+    .daw-track-row {
+      display: flex;
+      align-items: center;
+      margin: 3px 0;
+    }
+
+    .daw-track-label {
+      width: 80px;
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+
+    .daw-track-lane {
+      flex: 1;
+      height: 28px;
+      position: relative;
+      background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.06) 1px,
+        transparent 1px
+      );
+      background-size: 70px 100%;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .daw-clip {
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      height: 20px;
+      width: 170px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, #ff512f, #ffb347);
+      box-shadow: 0 0 12px rgba(255, 81, 47, 0.7);
+      opacity: 0.96;
+    }
+
+    .playhead {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #fff;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      transform: translateX(0);
+    }
+
+    .daw-transport {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .daw-transport button {
+      border-radius: 999px;
+      border: none;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      background: #ff512f;
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .daw-transport button:hover {
+      filter: brightness(1.05);
+    }
+
+    .daw-status {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    /* VIEW SWITCHING */
+
+    .view {
+      margin-top: 10px;
+    }
+
+    .view.hidden {
+      display: none;
+    }
+
+    /* SCROLLBAR */
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #111;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #666;
+    }
+
+    @media (max-width: 900px) {
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="tabs.html">Tabs</a>
-    <a href="ai-tools.html">AI Tools</a>
-    <a href="youtube-ai.html">YouTube AI</a>
-  </nav>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">TAB MASTER PRO</div>
 
-  <h1>AI Tools</h1>
-
-  <div class="tool-box">
-    <p>This is where your AI-powered music tools will live.</p>
-    <p>Coming soon: stem separation, audio-to-MIDI, tab generation, and more.</p>
-  </div>
-
-  <h2>Stem Separator</h2>
-  <div class="tool-box">
-    <p>Upload a song file (MP3 or WAV) to separate vocals, drums, bass, and more.</p>
-
-    <div class="file-input-wrapper">
-      <span id="fileLabel">Choose File</span>
-      <input type="file" id="audioFile" accept=".mp3,.wav" />
+    <div class="nav-title">Studio</div>
+    <div class="nav-item active" data-view="home">
+      <span class="icon">🏠</span>
+      <span>Home</span>
+    </div>
+    <div class="nav-item" data-view="songgen">
+      <span class="icon">🎼</span>
+      <span>Song Generator</span>
+    </div>
+    <div class="nav-item" data-view="stems">
+      <span class="icon">🎛️</span>
+      <span>Stem Separator</span>
+    </div>
+    <div class="nav-item" data-view="tabs">
+      <span class="icon">🎸</span>
+      <span>Tabs Studio</span>
+    </div>
+    <div class="nav-item" data-view="daw">
+      <span class="icon">🎚️</span>
+      <span>DAW Studio</span>
     </div>
 
-    <button onclick="processAudio()">Separate Stems</button>
+    <div class="nav-separator"></div>
 
-    <div id="progressBar">
-      <div id="progressFill"></div>
+    <div class="nav-item" onclick="window.location.href='ai-tools.html'">
+      <span class="icon">🧪</span>
+      <span>Legacy AI Tools</span>
     </div>
 
-    <div id="results"></div>
-  </div>
-
-  <h2>Horizontal DAW</h2>
-  <div id="daw">
-    <div class="timeline">
-      <div class="tick">1</div>
-      <div class="tick">2</div>
-      <div class="tick">3</div>
-      <div class="tick">4</div>
-      <div class="tick">5</div>
-      <div class="tick">6</div>
+    <div class="sidebar-bottom">
+      Built for creating riffs, stems, and full songs in one warm, inviting studio.
     </div>
+  </aside>
 
-    <div class="track-row">
-      <div class="track-label">Vocals</div>
-      <div class="track-block"></div>
+  <!-- MAIN -->
+  <main class="main">
+    <div class="main-inner">
+      <!-- HOME VIEW -->
+      <section id="view-home" class="view">
+        <div class="hero">
+          <div class="hero-left">
+            <h1>Welcome to your AI‑powered music studio.</h1>
+            <p>
+              Generate songs, split stems, write interactive tabs, and experiment in a DAW‑style
+              mixer — all in one place.
+            </p>
+            <div class="hero-tags">
+              <span class="tag">Warm & vibrant workspace</span>
+              <span class="tag">Song ideas in seconds</span>
+              <span class="tag">Band‑ready stems</span>
+              <span class="tag">Guitar + drums friendly</span>
+            </div>
+          </div>
+          <div class="hero-cta">
+            <button class="primary" onclick="switchView('songgen')">
+              🎼 Start with a Song Idea
+            </button>
+            <button class="secondary" onclick="switchView('stems')">
+              🎧 Upload a Track to Split
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Song Generator</h2>
+              <span class="pill">AI Studio</span>
+            </div>
+            <div class="panel-body">
+              Describe a vibe, mood, or story and let the studio sketch out a song concept.
+              <div class="field-label">Prompt</div>
+              <textarea id="homeSongPrompt" placeholder="Sad mid‑tempo rock track about missing someone in the rain..."></textarea>
+              <button class="btn" onclick="generateSong('home')">
+                Generate Song Concept
+              </button>
+              <div id="homeSongProgress" class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+              <div class="tiny">This generates lyrics + structure — audio to come later.</div>
+              <div id="homeSongOutput" class="song-output" style="display:none;"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Quick Actions</h2>
+              <span class="pill">Shortcuts</span>
+            </div>
+            <div class="panel-body">
+              <div class="field-label">Jump into a tool</div>
+              <div class="tabs-toolbar">
+                <button class="btn btn-secondary" onclick="switchView('songgen')">🎼 Song Generator</button>
+                <button class="btn btn-secondary" onclick="switchView('stems')">🎧 Separate Stems</button>
+                <button class="btn btn-secondary" onclick="switchView('tabs')">🎸 Tabs Studio</button>
+                <button class="btn btn-secondary" onclick="switchView('daw')">🎚️ DAW Studio</button>
+              </div>
+              <div class="field-label" style="margin-top:10px;">Recently imagined</div>
+              <p class="tiny">
+                • “Up‑tempo pop‑punk anthem about starting over.”<br />
+                • “Lo‑fi chillhop loop for late‑night coding.”<br />
+                • “Melodic metal track with epic chorus.”
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SONG GENERATOR VIEW -->
+      <section id="view-songgen" class="view hidden">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>AI Song Generator</h2>
+            <span class="pill">Suno‑style Concept</span>
+          </div>
+          <div class="panel-body">
+            <p>
+              Give the studio a prompt and we’ll sketch out a song concept: structure, lyrics, and vibe.
+              Audio generation can plug in later.
+            </p>
+            <div class="field-label">Describe your track</div>
+            <textarea id="songPrompt" placeholder="Energetic pop‑rock song with big chorus, about finally letting go of the past..."></textarea>
+
+            <div class="field-label">Style</div>
+            <select id="songStyle">
+              <option>Modern Pop</option>
+              <option>Pop Punk</option>
+              <option>Metal / Metalcore</option>
+              <option>Lo‑Fi / Chill</option>
+              <option>Indie Rock</option>
+              <option>Acoustic / Singer‑Songwriter</option>
+            </select>
+
+            <div class="field-label">Tempo & mood</div>
+            <div class="row">
+              <input type="text" id="songBpm" placeholder="BPM (e.g. 120)" style="max-width:120px;" />
+              <input type="text" id="songMood" placeholder="Mood (hopeful, dark, nostalgic...)" />
+            </div>
+
+            <button class="btn" onclick="generateSong('full')">✨ Generate Song Plan</button>
+            <div id="songProgress" class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+            <div class="tiny">
+              This is a creative assistant, not a finished track yet. Perfect for getting unstuck or starting a new idea.
+            </div>
+
+            <div id="songOutput" class="song-output" style="display:none;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEM SEPARATOR VIEW -->
+      <section id="view-stems" class="view hidden">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>AI Stem Separator</h2>
+            <span class="pill">Track Processing</span>
+          </div>
+          <div class="panel-body">
+            <p>
+              Drop in a YouTube link or upload a file to separate vocals, drums, bass, and more.
+              The bar shows the AI working in real time.
+            </p>
+
+            <div class="field-label">YouTube link (optional)</div>
+            <input type="url" id="ytUrl" placeholder="https://www.youtube.com/watch?v=..." />
+
+            <div class="field-label">Or upload audio</div>
+            <div class="row">
+              <button class="btn btn-secondary" onclick="document.getElementById('stemFile').click()">
+                📁 Choose File
+              </button>
+              <input id="stemFile" class="file-input-hidden" type="file" accept=".mp3,.wav" />
+              <div id="stemFileChip" class="file-chip" style="display:none;"></div>
+            </div>
+
+            <button class="btn" onclick="startStemSeparation()">🎛️ Separate Stems</button>
+
+            <div id="stemProgress" class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+            <div id="stemStatus" class="tiny"></div>
+
+            <div id="stemResults" class="song-output" style="display:none;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TABS STUDIO VIEW -->
+      <section id="view-tabs" class="view hidden">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Tabs Studio</h2>
+            <span class="pill">Interactive Tabs</span>
+          </div>
+          <div class="panel-body">
+            <p>
+              Sketch guitar and drum ideas in a quick, Songsterr‑style tab space. This is a visual scratchpad for riffs and grooves.
+            </p>
+
+            <div class="tabs-grid">
+              <div>
+                <div class="field-label">Guitar tab</div>
+                <div id="guitarTab" class="tabs-box">
+E|----------------|
+B|----------------|
+G|----------------|
+D|----------------|
+A|----------------|
+E|----------------|
+                </div>
+              </div>
+
+              <div>
+                <div class="field-label">Drum grid</div>
+                <div id="drumTab" class="tabs-box">
+HH|x-x-x-x-x-x-x-x-|
+SD|----o-------o---|
+BD|o-------o-------|
+                </div>
+              </div>
+            </div>
+
+            <div class="tabs-toolbar">
+              <button class="btn btn-secondary" onclick="addGuitarNote()">+ Add guitar note</button>
+              <button class="btn btn-secondary" onclick="addDrumHit()">+ Add drum hit</button>
+              <button class="btn btn-secondary" onclick="resetTabs()">Reset tabs</button>
+            </div>
+
+            <div class="tiny">
+              Later, this can export to MIDI or talk to real playback — for now it’s a structured idea pad.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DAW VIEW -->
+      <section id="view-daw" class="view hidden">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>DAW Studio</h2>
+            <span class="pill">Horizontal Timeline</span>
+          </div>
+          <div class="panel-body">
+            <p>
+              A horizontal, BandLab‑style mini‑DAW. Upload audio, see it appear as clips, and play it through the timeline.
+            </p>
+
+            <div class="field-label">Upload audio</div>
+            <div class="row">
+              <button class="btn btn-secondary" onclick="document.getElementById('dawFile').click()">
+                📁 Choose Audio
+              </button>
+              <input id="dawFile" class="file-input-hidden" type="file" accept=".mp3,.wav" />
+              <div id="dawFileChip" class="file-chip" style="display:none;"></div>
+            </div>
+
+            <div class="daw-shell">
+              <div class="daw-header">
+                <div class="daw-header-left">
+                  <span>Tempo: 120 BPM</span>
+                  <span>4/4</span>
+                  <span>Key: C</span>
+                </div>
+                <div>AutoMix AI (placeholder)</div>
+              </div>
+
+              <div class="daw-timeline">
+                <div class="daw-ruler">
+                  <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+                </div>
+
+                <div class="daw-track-row">
+                  <div class="daw-track-label">Vocals</div>
+                  <div class="daw-track-lane">
+                    <div class="daw-clip" id="clip-vocals" style="display:none;"></div>
+                  </div>
+                </div>
+                <div class="daw-track-row">
+                  <div class="daw-track-label">Drums</div>
+                  <div class="daw-track-lane">
+                    <div class="daw-clip" id="clip-drums" style="display:none;"></div>
+                  </div>
+                </div>
+                <div class="daw-track-row">
+                  <div class="daw-track-label">Bass</div>
+                  <div class="daw-track-lane">
+                    <div class="daw-clip" id="clip-bass" style="display:none;"></div>
+                  </div>
+                </div>
+                <div class="daw-track-row">
+                  <div class="daw-track-label">Other</div>
+                  <div class="daw-track-lane">
+                    <div class="daw-clip" id="clip-other" style="display:none;"></div>
+                  </div>
+                </div>
+
+                <div class="playhead" id="playhead"></div>
+              </div>
+
+              <div class="daw-transport">
+                <button id="dawPlayBtn">▶ Play</button>
+                <button id="dawStopBtn">■ Stop</button>
+              </div>
+              <div id="dawStatus" class="daw-status">No audio loaded yet.</div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+  </main>
 
-    <div class="track-row">
-      <div class="track-label">Drums</div>
-      <div class="track-block"></div>
-    </div>
-
-    <div class="track-row">
-      <div class="track-label">Bass</div>
-      <div class="track-block"></div>
-    </div>
-
-    <div class="track-row">
-      <div class="track-label">Other</div>
-      <div class="track-block"></div>
-    </div>
-
-    <div id="transport">
-      <button id="playBtn">Play</button>
-      <button id="stopBtn">Stop</button>
-    </div>
-
-    <div id="mixerStatus"></div>
-  </div>
-
+  <!-- SOUND EFFECTS -->
   <audio id="clickSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
-  <audio id="toggleSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"></audio>
 
   <script>
-    let uploadedAudio = null;
+    // VIEW SWITCHING
+    function switchView(viewId) {
+      document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+      document.getElementById('view-' + viewId).classList.remove('hidden');
 
-    document.getElementById("audioFile").addEventListener("change", function() {
-      const file = this.files[0];
-      document.getElementById("fileLabel").textContent = file ? file.name : "Choose File";
+      document.querySelectorAll('.nav-item[data-view]').forEach(item => {
+        item.classList.toggle('active', item.getAttribute('data-view') === viewId);
+      });
+    }
+
+    document.querySelectorAll('.nav-item[data-view]').forEach(item => {
+      item.addEventListener('click', () => {
+        const view = item.getAttribute('data-view');
+        switchView(view);
+      });
     });
 
-    function processAudio() {
-      const fileInput = document.getElementById("audioFile");
-      const file = fileInput.files[0];
+    const clickSound = document.getElementById('clickSound');
 
-      if (!file) {
-        alert("Please upload a file first.");
-        return;
+    // SONG GENERATOR (HOME + FULL)
+    function generateSong(scope) {
+      const progressBar = scope === 'home'
+        ? document.getElementById('homeSongProgress')
+        : document.getElementById('songProgress');
+      const progressFill = progressBar.querySelector('.progress-fill');
+      const outputEl = scope === 'home'
+        ? document.getElementById('homeSongOutput')
+        : document.getElementById('songOutput');
+      const promptEl = scope === 'home'
+        ? document.getElementById('homeSongPrompt')
+        : document.getElementById('songPrompt');
+
+      let style = '';
+      let bpm = '';
+      let mood = '';
+
+      if (scope === 'full') {
+        style = document.getElementById('songStyle').value;
+        bpm = document.getElementById('songBpm').value || '120';
+        mood = document.getElementById('songMood').value || 'emotional';
       }
 
-      document.getElementById("results").innerHTML = `<p>Processing "${file.name}"...</p>`;
-      document.getElementById("progressBar").style.display = "block";
+      const prompt = promptEl.value.trim() || 'A new song idea with emotional lyrics and big dynamic shifts.';
+
+      clickSound.play();
+
+      progressBar.style.display = 'block';
+      progressFill.style.width = '0%';
+      outputEl.style.display = 'none';
+      outputEl.innerHTML = '';
 
       let progress = 0;
       const interval = setInterval(() => {
-        progress += Math.random() * 5;
-
+        progress += Math.random() * 12;
         if (progress >= 100) {
           progress = 100;
           clearInterval(interval);
+          const title = '“' + (prompt.slice(0, 32) || 'Untitled Idea') + '”';
+          let text =
+            `<strong>${title}</strong><br/><br/>` +
+            `• Style: ${style || 'Auto / mixed influences'}<br/>` +
+            `• Tempo: ${bpm} BPM<br/>` +
+            `• Mood: ${mood}<br/><br/>` +
+            `Verse 1:<br/>` +
+            `I’ve been running from the echoes in my head<br/>` +
+            `Every streetlight paints your name in red<br/>` +
+            `All the things we never said still shaking up my chest<br/><br/>` +
+            `Chorus:<br/>` +
+            `So light me up, like a match in the thunder<br/>` +
+            `Tear this quiet night apart, pull me from the undertow<br/>` +
+            `If this is how it ends, let it sound like something bold<br/>` +
+            `’Cause I’m tired of fading out in the dark alone.`;
 
-          document.getElementById("results").innerHTML += `<p>Track ready!</p>`;
-          moveTrackToDAW(file.name, file);
+          outputEl.innerHTML = text;
+          outputEl.style.display = 'block';
         }
-
-        document.getElementById("progressFill").style.width = progress + "%";
-      }, 200);
+        progressFill.style.width = progress + '%';
+      }, 180);
     }
 
-    function moveTrackToDAW(filename, file) {
-      document.getElementById("mixerStatus").innerHTML = `<p>Loaded into DAW: ${filename}</p>`;
-      uploadedAudio = new Audio(URL.createObjectURL(file));
-      uploadedAudio.volume = 0.8;
+    // STEM SEPARATOR
+    const stemFileInput = document.getElementById('stemFile');
+    const stemFileChip = document.getElementById('stemFileChip');
+
+    stemFileInput.addEventListener('change', () => {
+      const file = stemFileInput.files[0];
+      if (file) {
+        stemFileChip.textContent = file.name;
+        stemFileChip.style.display = 'inline-flex';
+      } else {
+        stemFileChip.style.display = 'none';
+      }
+    });
+
+    function startStemSeparation() {
+      const ytUrl = document.getElementById('ytUrl').value.trim();
+      const file = stemFileInput.files[0];
+
+      if (!ytUrl && !file) {
+        alert('Please paste a YouTube link or upload an audio file.');
+        return;
+      }
+
+      clickSound.play();
+
+      const progressBar = document.getElementById('stemProgress');
+      const fill = progressBar.querySelector('.progress-fill');
+      const status = document.getElementById('stemStatus');
+      const results = document.getElementById('stemResults');
+
+      progressBar.style.display = 'block';
+      fill.style.width = '0%';
+      status.textContent = 'Starting AI separation...';
+      results.style.display = 'none';
+      results.innerHTML = '';
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 7;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          status.textContent = 'Separation complete. Stems ready (placeholder).';
+          results.style.display = 'block';
+          results.innerHTML =
+            `<strong>Stems:</strong><br/>` +
+            `• Vocals<br/>` +
+            `• Drums<br/>` +
+            `• Bass<br/>` +
+            `• Other<br/><br/>` +
+            `In the future, each stem will be downloadable and routable into the DAW.`;
+        }
+        fill.style.width = progress + '%';
+      }, 250);
     }
 
-    const click
+    // TABS STUDIO (simple playful ops)
+    function addGuitarNote() {
+      clickSound.play();
+      const el = document.getElementById('guitarTab');
+      el.textContent += '\nE|----5-----5-----5-----5--|';
+    }
+
+    function addDrumHit() {
+      clickSound.play();
+      const el = document.getElementById('drumTab');
+      el.textContent += '\nHH|x-x-x-x-x-x-x-x-| SD|----o-------o---| BD|o-------o-------|';
+    }
+
+    function resetTabs() {
+      clickSound.play();
+      document.getElementById('guitarTab').textContent =
+`E|----------------|
+B|----------------|
+G|----------------|
+D|----------------|
+A|----------------|
+E|----------------|`;
+      document.getElementById('drumTab').textContent =
+`HH|x-x-x-x-x-x-x-x-|
+SD|----o-------o---|
+BD|o-------o-------|`;
+    }
+
+    // DAW STUDIO
+    const dawFileInput = document.getElementById('dawFile');
+    const dawFileChip = document.getElementById('dawFileChip');
+    const dawStatus = document.getElementById('dawStatus');
+    const playhead = document.getElementById('playhead');
+    let dawAudio = null;
+    let playheadInterval = null;
+
+    dawFileInput.addEventListener('change', () => {
+      const file = dawFileInput.files[0];
+      if (file) {
+        dawFileChip.textContent = file.name;
+        dawFileChip.style.display = 'inline-flex';
+        loadDawAudio(file);
+      } else {
+        dawFileChip.style.display = 'none';
+      }
+    });
+
+    function loadDawAudio(file) {
+      if (dawAudio) {
+        dawAudio.pause();
+      }
+      dawAudio = new Audio(URL.createObjectURL(file));
+      dawAudio.onloadedmetadata = () => {
+        dawStatus.textContent = `Loaded into DAW: ${file.name} (${dawAudio.duration.toFixed(1)}s)`;
+        // Show clips
+        ['clip-vocals', 'clip-drums', 'clip-bass', 'clip-other'].forEach(id => {
+          document.getElementById(id).style.display = 'block';
+        });
+      };
+    }
+
+    document.getElementById('dawPlayBtn').addEventListener('click', () => {
+      clickSound.play();
+      if (!dawAudio) {
+        dawStatus.textContent = 'No audio loaded yet.';
+        return;
+      }
+      dawAudio.play();
+      dawStatus.textContent = 'Playing...';
+
+      if (playheadInterval) clearInterval(playheadInterval);
+      const laneWidth = document.querySelector('.daw-track-lane').clientWidth;
+      const duration = dawAudio.duration || 30;
+      playhead.style.left = '0px';
+
+      const start = performance.now();
+      playheadInterval = setInterval(() => {
+        const elapsed = (performance.now() - start) / 1000;
+        const ratio = Math.min(elapsed / duration, 1);
+        playhead.style.transform = `translateX(${ratio * laneWidth}px)`;
+        if (ratio >= 1) {
+          clearInterval(playheadInterval);
+        }
+      }, 50);
+    });
+
+    document.getElementById('dawStopBtn').addEventListener('click', () => {
+      clickSound.play();
+      if (dawAudio) {
+        dawAudio.pause();
+        dawAudio.currentTime = 0;
+      }
+      dawStatus.textContent = 'Stopped.';
+      if (playheadInterval) clearInterval(playheadInterval);
+      playhead.style.transform = 'translateX(0)';
+    });
+  </script>
+</body>
+</html>
