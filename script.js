@@ -9,3 +9,15 @@ navItems.forEach(item => {
     document.getElementById(`view-${target}`).classList.remove('hidden');
   });
 });
+// Shortcut click logic
+const shortcutCards = document.querySelectorAll('.shortcut-card');
+
+shortcutCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const target = card.getAttribute('data-view');
+    if (!target) return;
+
+    views.forEach(v => v.classList.add('hidden'));
+    document.getElementById(`view-${target}`).classList.remove('hidden');
+  });
+});
