@@ -21,7 +21,12 @@ body {
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #ff2a2a;
+  color: white;
+  text-shadow:
+    -1px -1px 0 #b30000,
+     1px -1px 0 #b30000,
+    -1px  1px 0 #b30000,
+     1px  1px 0 #b30000;
 }
 
 .nav-item {
