@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Master Pro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="sidebar">
+    <div class="nav-item" data-view="home">
+      <span class="icon">🏠</span>
+      <span>Home</span>
+    </div>
+
+    <div class="nav-item" data-view="stems">
+      <span class="icon">🎤</span>
+      <span>Stems</span>
+    </div>
+
+    <div class="nav-item" data-view="ai-tools">
+      <span class="icon">🤖</span>
+      <span>AI Tools</span>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- HOME VIEW -->
+    <section id="view-home" class="view">
+      <h1>Welcome to Tab Master Pro</h1>
+      <p>Create music, generate stems, and explore AI tools.</p>
+    </section>
+
+    <!-- STEMS VIEW -->
+    <section id="view-stems" class="view hidden">
+      <h2>Stems Generator</h2>
+
+      <p>Upload audio and extract stems.</p>
+
+      <button class="btn" onclick="document.getElementById('stemFile').click()">📁 Upload Audio</button>
+      <input id="stemFile" type="file" accept=".mp3,.wav" class="file-input-hidden">
+
+      <div id="stemStatus"></div>
+    </section>
+
+    <!-- AI TOOLS VIEW -->
+    <section id="view-ai-tools" class="view hidden">
+      <h2>AI Tools</h2>
+
+      <div class="panel">
+        <h3>Lyric Generator</h3>
+        <textarea id="lyricInput" placeholder="Describe the vibe..."></textarea>
+        <button class="btn">Generate Lyrics</button>
+      </div>
+
+      <div class="panel">
+        <h3>Song Idea Pad</h3>
+        <textarea id="ideaPad" placeholder="Write ideas here..."></textarea>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
