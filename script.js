@@ -1,4 +1,3 @@
-// Simple view switching
 const navItems = document.querySelectorAll('.nav-item');
 const views = document.querySelectorAll('.view');
 
