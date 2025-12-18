@@ -3,64 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tab Master Pro</title>
+  <title>Song Studio</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <!-- NAVIGATION -->
+  <!-- SIDEBAR -->
   <nav class="sidebar">
+    <div class="brand">🎵 Song Studio</div>
+
     <div class="nav-item" data-view="home">
       <span class="icon">🏠</span>
       <span>Home</span>
     </div>
 
-    <div class="nav-item" data-view="stems">
-      <span class="icon">🎤</span>
-      <span>Stems</span>
+    <div class="nav-item" data-view="create">
+      <span class="icon">🎨</span>
+      <span>Create</span>
     </div>
 
-    <div class="nav-item" data-view="ai-tools">
-      <span class="icon">🤖</span>
-      <span>AI Tools</span>
+    <div class="nav-item" data-view="studio">
+      <span class="icon">🎼</span>
+      <span>Song Studio</span>
+    </div>
+
+    <div class="nav-item" data-view="converter">
+      <span class="icon">🔁</span>
+      <span>File Converter</span>
     </div>
   </nav>
 
   <!-- MAIN CONTENT -->
   <main>
 
-    <!-- HOME VIEW -->
+    <!-- HOME -->
     <section id="view-home" class="view">
-      <h1>Welcome to Tab Master Pro</h1>
-      <p>Create music, generate stems, and explore AI tools.</p>
-    </section>
+      <h1>Welcome to Song Studio</h1>
+      <p>Your creative hub for music generation, stems, conversion, and more.</p>
 
-    <!-- STEMS VIEW -->
-    <section id="view-stems" class="view hidden">
-      <h2>Stems Generator</h2>
-
-      <p>Upload audio and extract stems.</p>
-
-      <button class="btn" onclick="document.getElementById('stemFile').click()">📁 Upload Audio</button>
-      <input id="stemFile" type="file" accept=".mp3,.wav" class="file-input-hidden">
-
-      <div id="stemStatus"></div>
-    </section>
-
-    <!-- AI TOOLS VIEW -->
-    <section id="view-ai-tools" class="view hidden">
-      <h2>AI Tools</h2>
-
-      <div class="panel">
-        <h3>Lyric Generator</h3>
-        <textarea id="lyricInput" placeholder="Describe the vibe..."></textarea>
-        <button class="btn">Generate Lyrics</button>
+      <div class="shortcut-grid">
+        <div class="shortcut-card">🎤 Stem Separator</div>
+        <div class="shortcut-card">🎶 Song Generator</div>
+        <div class="shortcut-card">🔁 File Converter</div>
+        <div class="shortcut-card">🎛️ Future DAW</div>
+        <div class="shortcut-card">📄 Tabs</div>
       </div>
+    </section>
+
+    <!-- CREATE -->
+    <section id="view-create" class="view hidden">
+      <h2>Create a Song</h2>
 
       <div class="panel">
-        <h3>Song Idea Pad</h3>
-        <textarea id="ideaPad" placeholder="Write ideas here..."></textarea>
+        <h3>Song Generator</h3>
+        <p>Choose your mode:</p>
+
+        <div class="mode-buttons">
+          <button class="btn">Simple Mode</button>
+          <button class="btn">Custom Mode</button>
+        </div>
+
+        <textarea placeholder="Describe your song idea..."></textarea>
+        <button class="btn">Generate Song</button>
+      </div>
+    </section>
+
+    <!-- SONG STUDIO -->
+    <section id="view-studio" class="view hidden">
+      <h2>Your Song Studio</h2>
+      <p>Generated audio tracks will appear here, stacked horizontally like Suno.</p>
+
+      <div class="track-container">
+        <div class="track">Track 1</div>
+        <div class="track">Track 2</div>
+        <div class="track">Track 3</div>
+      </div>
+    </section>
+
+    <!-- FILE CONVERTER -->
+    <section id="view-converter" class="view hidden">
+      <h2>File Converter</h2>
+      <p>Convert any file to any format.</p>
+
+      <div class="panel">
+        <input type="file">
+        <select>
+          <option>Convert to MP3</option>
+          <option>Convert to WAV</option>
+          <option>Convert to OGG</option>
+          <option>Convert to FLAC</option>
+        </select>
+        <button class="btn">Convert</button>
       </div>
     </section>
 
@@ -69,4 +103,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
