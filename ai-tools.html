@@ -804,78 +804,69 @@ BD|o-------o-------|
       </section>
 
       <!-- DAW VIEW -->
-      <section id="view-daw" class="view hidden">
-        <div class="panel">
-          <div class="panel-header">
-            <h2>DAW Studio</h2>
-            <span class="pill">Horizontal Timeline</span>
-          </div>
-          <div class="panel-body">
-            <p>
-              A horizontal, BandLab‑style mini‑DAW. Upload audio, see it appear as clips, and play it through the timeline.
-            </p>
+   <section id="view-daw" class="view hidden">
 
-            <div class="field-label">Upload audio</div>
-            <div class="row">
-              <button class="btn btn-secondary" onclick="document.getElementById('dawFile').click()">
-                📁 Choose Audio
-              </button>
-              <input id="dawFile" class="file-input-hidden" type="file" accept=".mp3,.wav" />
-              <div id="dawFileChip" class="file-chip" style="display:none;"></div>
-            </div>
+  <div id="dawStudio">
 
-            <div class="daw-shell">
-              <div class="daw-header">
-                <div class="daw-header-left">
-                  <span>Tempo: 120 BPM</span>
-                  <span>4/4</span>
-                  <span>Key: C</span>
-                </div>
-                <div>AutoMix AI (placeholder)</div>
-              </div>
+    <!-- Transport Bar -->
+    <div id="dawTransport">
+      <button class="daw-btn" id="dawPlay">▶</button>
+      <button class="daw-btn" id="dawPause">⏸</button>
+      <button class="daw-btn" id="dawRecord">●</button>
 
-              <div class="daw-timeline">
-                <div class="daw-ruler">
-                  <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
-                </div>
+      <div id="dawTimer">00:00.0</div>
 
-                <div class="daw-track-row">
-                  <div class="daw-track-label">Vocals</div>
-                  <div class="daw-track-lane">
-                    <div class="daw-clip" id="clip-vocals" style="display:none;"></div>
-                  </div>
-                </div>
-                <div class="daw-track-row">
-                  <div class="daw-track-label">Drums</div>
-                  <div class="daw-track-lane">
-                    <div class="daw-clip" id="clip-drums" style="display:none;"></div>
-                  </div>
-                </div>
-                <div class="daw-track-row">
-                  <div class="daw-track-label">Bass</div>
-                  <div class="daw-track-lane">
-                    <div class="daw-clip" id="clip-bass" style="display:none;"></div>
-                  </div>
-                </div>
-                <div class="daw-track-row">
-                  <div class="daw-track-label">Other</div>
-                  <div class="daw-track-lane">
-                    <div class="daw-clip" id="clip-other" style="display:none;"></div>
-                  </div>
-                </div>
+      <div class="daw-setting">
+        <label>BPM</label>
+        <input id="dawBPM" type="number" value="120" min="40" max="240">
+      </div>
 
-                <div class="playhead" id="playhead"></div>
-              </div>
+      <div class="daw-setting">
+        <label>Time</label>
+        <select id="dawTimeSig">
+          <option>4/4</option>
+          <option>3/4</option>
+          <option>6/8</option>
+        </select>
+      </div>
 
-              <div class="daw-transport">
-                <button id="dawPlayBtn">▶ Play</button>
-                <button id="dawStopBtn">■ Stop</button>
-              </div>
-              <div id="dawStatus" class="daw-status">No audio loaded yet.</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div class="daw-setting">
+        <label>Key</label>
+        <select id="dawKey">
+          <option>C</option><option>C#</option><option>D</option>
+          <option>D#</option><option>E</option><option>F</option>
+          <option>F#</option><option>G</option><option>G#</option>
+          <option>A</option><option>A#</option><option>B</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Timeline Ruler -->
+    <div id="dawTimeline">
+      <div class="measure">1</div>
+      <div class="measure">2</div>
+      <div class="measure">3</div>
+      <div class="measure">4</div>
+      <div class="measure">5</div>
+      <div class="measure">6</div>
+      <div class="measure">7</div>
+      <div class="measure">8</div>
+      <div class="measure">9</div>
+      <div class="measure">10</div>
+      <div class="measure">11</div>
+      <div class="measure">12</div>
+    </div>
+
+    <!-- Tracks Container -->
+    <div id="dawTracks"></div>
+
+    <!-- Add Track Button -->
+    <button id="dawAddTrack">+ Add Track</button>
+
+  </div>
+
+</section>
+
     </div>
   </main>
 
