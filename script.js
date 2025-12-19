@@ -77,3 +77,19 @@ customBtn.addEventListener("click", () => {
   customContent.classList.remove("hidden");
   simpleContent.classList.add("hidden");
 });
+
+// MOCK SONG GENERATOR
+function mockGenerateSong({ title, vibe, lyrics, instrumental }) {
+  const id = Date.now();
+
+  return {
+    id,
+    title: title || "Untitled Track",
+    vibe: vibe || "Unknown vibe",
+    lyrics: lyrics || "",
+    instrumental: instrumental || false,
+    audioUrl: "placeholder.mp3", // your fake audio file
+    createdAt: new Date().toLocaleString()
+  };
+}
+
