@@ -52,3 +52,28 @@ songSearch.addEventListener('input', () => {
     song.style.display = title.includes(query) ? 'block' : 'none';
   });
 });
+
+// MODE SWITCHING
+const simpleBtn = document.getElementById("simpleMode");
+const customBtn = document.getElementById("customMode");
+
+const simpleContent = document.getElementById("simpleContent");
+const customContent = document.getElementById("customContent");
+
+// Switch to Simple Mode
+simpleBtn.addEventListener("click", () => {
+  simpleBtn.classList.add("mode-active");
+  customBtn.classList.remove("mode-active");
+
+  simpleContent.classList.remove("hidden");
+  customContent.classList.add("hidden");
+});
+
+// Switch to Custom Mode
+customBtn.addEventListener("click", () => {
+  customBtn.classList.add("mode-active");
+  simpleBtn.classList.remove("mode-active");
+
+  customContent.classList.remove("hidden");
+  simpleContent.classList.add("hidden");
+});
