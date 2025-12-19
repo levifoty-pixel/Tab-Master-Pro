@@ -37,3 +37,18 @@ if (genreSearch) {
     });
   });
 }
+
+// SONG SEARCH BAR LOGIC
+const songSearch = document.getElementById('songSearch');
+const songList = document.getElementById('songList');
+
+songSearch.addEventListener('input', () => {
+  // This is placeholder logic — real filtering will come when songs are added
+  const query = songSearch.value.toLowerCase();
+  const songs = songList.querySelectorAll('.song-item');
+
+  songs.forEach(song => {
+    const title = song.textContent.toLowerCase();
+    song.style.display = title.includes(query) ? 'block' : 'none';
+  });
+});
