@@ -207,4 +207,14 @@ h2, h3, p, label, input, textarea {
 .hidden {
   display: none;
 }
+.mode-buttons .btn {
+  background: #b30000;
+  opacity: 0.7;
+}
+
+.mode-buttons .btn.mode-active {
+  background: #b30000;
+  opacity: 1;
+  font-weight: bold;
+}
 
