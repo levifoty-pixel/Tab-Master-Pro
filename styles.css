@@ -158,3 +158,49 @@ textarea {
   max-height: 200px;
   overflow-y: auto;
 }
+
+/* CREATE TAB LAYOUT */
+.create-layout {
+  display: flex;
+  gap: 30px;
+}
+
+.create-left {
+  flex: 1;
+}
+
+.create-right {
+  width: 300px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #b30000;
+  background: #0f0f18;
+  color: white;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.song-list {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #b30000;
+  min-height: 200px;
+}
+
+.empty-message {
+  color: #aaa;
+  font-style: italic;
+  text-align: center;
+  margin-top: 60px;
+  font-size: 18px;
+}
+
+/* WELCOMING FONT TWEAKS */
+h2, h3, p, label, input, textarea {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+}
