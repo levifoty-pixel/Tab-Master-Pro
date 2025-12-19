@@ -217,4 +217,9 @@ h2, h3, p, label, input, textarea {
   opacity: 1;
   font-weight: bold;
 }
+.create-left {
+  flex: 1;
+  max-width: 700px; /* or 600px if you want it tighter */
+}
+
 
