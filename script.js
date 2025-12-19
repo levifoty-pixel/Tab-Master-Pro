@@ -93,3 +93,22 @@ function mockGenerateSong({ title, vibe, lyrics, instrumental }) {
   };
 }
 
+function addSongToList(song) {
+  const list = document.getElementById("songList");
+
+  // Remove "Create your first song" message
+  const emptyMsg = list.querySelector(".empty-message");
+  if (emptyMsg) emptyMsg.remove();
+
+  const item = document.createElement("div");
+  item.classList.add("song-item");
+
+  item.innerHTML = `
+    <h4>${song.title}</h4>
+    <p><strong>Vibe:</strong> ${song.vibe}</p>
+    <audio controls src="${song.audioUrl}"></audio>
+    <p class="timestamp">${song.createdAt}</p>
+  `;
+
+  list.appendChild(item);
+}
