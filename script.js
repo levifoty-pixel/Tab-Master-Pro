@@ -112,3 +112,30 @@ function addSongToList(song) {
 
   list.appendChild(item);
 }
+
+document.getElementById("createSongBtn").addEventListener("click", () => {
+  const vibe = document.getElementById("vibeInput").value;
+
+  const song = mockGenerateSong({
+    title: "Generated Song",
+    vibe,
+    instrumental: false
+  });
+
+  addSongToList(song);
+});
+
+document.getElementById("createSongBtnCustom").addEventListener("click", () => {
+  const title = document.getElementById("songTitle").value;
+  const lyrics = document.getElementById("lyricsInput").value;
+  const vibe = document.getElementById("customVibe").value;
+
+  const song = mockGenerateSong({
+    title,
+    lyrics,
+    vibe,
+    instrumental: false
+  });
+
+  addSongToList(song);
+});
