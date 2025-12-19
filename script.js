@@ -21,3 +21,19 @@ shortcutCards.forEach(card => {
     document.getElementById(`view-${target}`).classList.remove('hidden');
   });
 });
+
+// GENRE SEARCH FILTER
+const genreSearch = document.getElementById('genre-search');
+const genreDropdown = document.getElementById('genre-dropdown');
+
+if (genreSearch) {
+  genreSearch.addEventListener('input', () => {
+    const filter = genreSearch.value.toLowerCase();
+    const options = genreDropdown.querySelectorAll('option');
+
+    options.forEach(option => {
+      const text = option.textContent.toLowerCase();
+      option.style.display = text.includes(filter) ? 'block' : 'none';
+    });
+  });
+}
