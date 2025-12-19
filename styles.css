@@ -204,3 +204,7 @@ textarea {
 h2, h3, p, label, input, textarea {
   font-family: 'Segoe UI', 'Arial', sans-serif;
 }
+.hidden {
+  display: none;
+}
+
