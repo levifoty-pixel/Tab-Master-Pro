@@ -127,3 +127,34 @@ textarea {
   border-radius: 8px;
   border: 1px solid #b30000;
 }
+
+.genre-selector {
+  margin-top: 20px;
+}
+
+.genre-selector label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+#genre-search {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #b30000;
+  background: #0f0f18;
+  color: white;
+  margin-bottom: 10px;
+}
+
+#genre-dropdown {
+  width: 100%;
+  background: #1a1a1a;
+  color: white;
+  border: 1px solid #b30000;
+  border-radius: 6px;
+  padding: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+}
