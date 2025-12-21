@@ -173,3 +173,44 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+window.addEventListener("DOMContentLoaded", () => {
+  console.log("Page loaded");
+
+  const createBtn = document.getElementById("createSongBtn");
+  console.log("Button:", createBtn);
+
+  if (createBtn) {
+    console.log("Button found — attaching click listener");
+    createBtn.addEventListener("click", () => {
+      console.log("Create button clicked");
+
+      const userPrompt = document.getElementById("vibeInput").value;
+
+      fetch("https://node-sense.levifoty-pixel.replit.dev/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: userPrompt })
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log("Audio URL:", data.audio_url);
+
+          const songList = document.getElementById("songList");
+          songList.innerHTML = `
+            <p>Vibe: ${userPrompt}</p>
+            <audio controls>
+              <source src="${data.audio_url}" type="audio/mpeg">
+            </audio>
+            <p>${new Date().toLocaleString()}</p>
+          `;
+        })
+        .catch(err => {
+          console.error("Error generating song:", err);
+        });
+    });
+  } else {
+    console.error("createSongBtn not found");
+  }
+});
+
+
