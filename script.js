@@ -139,3 +139,21 @@ document.getElementById("createSongBtnCustom").addEventListener("click", () => {
 
   addSongToList(song);
 });
+
+document.getElementById("createButton").addEventListener("click", () => {
+  const userPrompt = document.getElementById("promptInput").value;
+
+  fetch("https://node-sense.levifoty-pixel.replit.dev/api/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: userPrompt })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Audio URL:", data.audio_url);
+      // You can add code here to play the audio or show it on the page
+    })
+    .catch(err => {
+      console.error("Error generating song:", err);
+    });
+});
