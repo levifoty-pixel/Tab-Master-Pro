@@ -140,8 +140,8 @@ document.getElementById("createSongBtnCustom").addEventListener("click", () => {
   addSongToList(song);
 });
 
-document.getElementById("createButton").addEventListener("click", () => {
-  const userPrompt = document.getElementById("promptInput").value;
+document.getElementById("createSongBtn").addEventListener("click", () => {
+  const userPrompt = document.getElementById("vibeInput").value;
 
   fetch("https://node-sense.levifoty-pixel.replit.dev/api/generate", {
     method: "POST",
@@ -151,9 +151,17 @@ document.getElementById("createButton").addEventListener("click", () => {
     .then(res => res.json())
     .then(data => {
       console.log("Audio URL:", data.audio_url);
-      // You can add code here to play the audio or show it on the page
+
+      // OPTIONAL: Add audio player to the page
+      const songList = document.getElementById("songList");
+      songList.innerHTML = `
+        <audio controls>
+          <source src="${data.audio_url}" type="audio/mpeg">
+        </audio>
+      `;
     })
     .catch(err => {
       console.error("Error generating song:", err);
     });
 });
+
