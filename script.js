@@ -140,28 +140,36 @@ document.getElementById("createSongBtnCustom").addEventListener("click", () => {
   addSongToList(song);
 });
 
-document.getElementById("createSongBtn").addEventListener("click", () => {
-  const userPrompt = document.getElementById("vibeInput").value;
+window.addEventListener("DOMContentLoaded", () => {
+  const createBtn = document.getElementById("createSongBtn");
+  if (createBtn) {
+    createBtn.addEventListener("click", () => {
+      const userPrompt = document.getElementById("vibeInput").value;
 
-  fetch("https://node-sense.levifoty-pixel.replit.dev/api/generate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt: userPrompt })
-  })
-    .then(res => res.json())
-    .then(data => {
-      console.log("Audio URL:", data.audio_url);
+      fetch("https://node-sense.levifoty-pixel.replit.dev/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: userPrompt })
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log("Audio URL:", data.audio_url);
 
-      // OPTIONAL: Add audio player to the page
-      const songList = document.getElementById("songList");
-      songList.innerHTML = `
-        <audio controls>
-          <source src="${data.audio_url}" type="audio/mpeg">
-        </audio>
-      `;
-    })
-    .catch(err => {
-      console.error("Error generating song:", err);
+          const songList = document.getElementById("songList");
+          songList.innerHTML = `
+            <p>Vibe: ${userPrompt}</p>
+            <audio controls>
+              <source src="${data.audio_url}" type="audio/mpeg">
+            </audio>
+            <p>${new Date().toLocaleString()}</p>
+          `;
+        })
+        .catch(err => {
+          console.error("Error generating song:", err);
+        });
     });
+  } else {
+    console.error("createSongBtn not found");
+  }
 });
 
