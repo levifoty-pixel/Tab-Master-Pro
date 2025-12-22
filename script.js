@@ -146,10 +146,23 @@ window.addEventListener("DOMContentLoaded", () => {
     createBtn.addEventListener("click", () => {
       const userPrompt = document.getElementById("vibeInput").value;
 
-      fetch("https://node-sense.levifoty-pixel.replit.dev/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: userPrompt })
+    fetch("https://ss-backend-sp3m.onrender.com/api/generate", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    prompt: userInput // or whatever variable holds your prompt
+  })
+})
+.then(response => response.json())
+.then(data => {
+  console.log("Audio URL:", data.audio_url);
+  // Update your player or UI here
+})
+.catch(error => {
+  console.error("Error generating audio:", error);
+});
       })
         .then(res => res.json())
         .then(data => {
