@@ -177,7 +177,6 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-createBtn.addEventListener("click", () => {
   const userPrompt = document.getElementById("vibeInput").value;
 
   fetch("https://ss-backend-sp3m.onrender.com/api/generate", {
