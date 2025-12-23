@@ -187,7 +187,7 @@ createBtn.addEventListener("click", () => {
   })
     .then(res => res.json())
     .then(data => {
-      console.log("Audio URL:", data.audio_url);
+console.log("Full response:", data);
 
       const songList = document.getElementById("songList");
       songList.innerHTML = `
