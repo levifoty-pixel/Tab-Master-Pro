@@ -176,3 +176,30 @@ window.addEventListener("DOMContentLoaded", () => {
       });
   });
 });
+
+createBtn.addEventListener("click", () => {
+  const userPrompt = document.getElementById("vibeInput").value;
+
+  fetch("https://ss-backend-sp3m.onrender.com/api/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: userPrompt })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Audio URL:", data.audio_url);
+
+      const songList = document.getElementById("songList");
+      songList.innerHTML = `
+        <p>Vibe: ${userPrompt}</p>
+        <audio controls>
+          <source src="${data.audio_url}" type="audio/mpeg">
+        </audio>
+        <p>${new Date().toLocaleString()}</p>
+      `;
+    })
+    .catch(err => {
+      console.error("Error generating song:", err);
+    });
+});
+
