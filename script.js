@@ -234,3 +234,16 @@ async function initTabs() {
   });
 }
 
+function setupPlayback(gp) {
+  const track = gp.tracks[0]; // guitar track
+  const synth = new Tone.PolySynth().toDestination();
+
+  const part = new Tone.Part((time, note) => {
+    synth.triggerAttackRelease(note.pitch, note.duration, time);
+    highlightNote(note);
+  }, convertToToneEvents(track));
+
+  part.start(0);
+}
+
+
