@@ -215,3 +215,22 @@ console.log("Full response:", data);
     });
 });
 
+import { GuitarPro } from "@tonejs/guitarpro";
+
+async function initTabs() {
+  const input = document.getElementById("gpInput");
+  const tabContainer = document.getElementById("tabContainer");
+
+  input.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    const arrayBuffer = await file.arrayBuffer();
+
+    const gp = await GuitarPro.parse(arrayBuffer);
+
+    console.log(gp); // This shows all tracks, notes, measures, techniques
+
+    renderTab(gp, tabContainer);
+    setupPlayback(gp);
+  });
+}
+
