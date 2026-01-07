@@ -157,12 +157,12 @@ document.getElementById("createSongBtnCustom").addEventListener("click", () => {
 // TABS SECTION BUTTONS
 // ------------------------------
 
+// Switch to the New Tab Editor screen
 document.getElementById("createTabBtn").addEventListener("click", () => {
-  document.getElementById("tabWorkspace").innerHTML = `
-    <h2>Manual Tab Editor</h2>
-    <textarea rows="12" cols="80" placeholder="Type your tab here..."></textarea>
-  `;
+  views.forEach(v => v.classList.add("hidden"));
+  document.getElementById("view-newtab").classList.remove("hidden");
 });
+
 
 document.getElementById("generateTabBtn").addEventListener("click", () => {
   document.getElementById("tabWorkspace").innerHTML = `
