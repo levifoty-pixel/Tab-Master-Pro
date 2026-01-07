@@ -141,17 +141,54 @@ document.getElementById("createSongBtnCustom").addEventListener("click", () => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-  const navItems = document.querySelectorAll('.nav-item');
-  const views = document.querySelectorAll('.view');
+  const createBtn = document.getElementById("createSongBtn");
 
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const target = item.getAttribute('data-view');
+  if (!createBtn) {
+    console.error("createSongBtn not found");
+    return;
+  }
 
-      views.forEach(v => v.classList.add('hidden'));
-      document.getElementById(`view-${target}`).classList.remove('hidden');
-    });
+  createBtn.addEventListener("click", () => {
+    console.log("Create button clicked");
+
+    const userPrompt = document.getElementById("vibeInput").value;
+
+    fetch("https://ss-backend-sp3m.onrender.com/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: userPrompt })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Full response:", data);
+
+        const audioUrl =
+          data.audio_url ||
+          data.audio ||
+          data.file ||
+          (data.files && data.files[0]) ||
+          (data.assets && data.assets.audio) ||
+          null;
+
+        if (!audioUrl) {
+          console.error("No audio URL returned from backend");
+          return;
+        }
+
+        const songList = document.getElementById("songList");
+        songList.innerHTML = `
+          <p>Vibe: ${userPrompt}</p>
+          <audio controls>
+            <source src="${audioUrl}" type="audio/mpeg">
+          </audio>
+          <p>${new Date().toLocaleString()}</p>
+        `;
+      })
+      .catch(err => {
+        console.error("Error generating song:", err);
+      });
   });
+});
 
   const shortcutCards = document.querySelectorAll('.shortcut-card');
 
