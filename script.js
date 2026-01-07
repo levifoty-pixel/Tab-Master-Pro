@@ -171,3 +171,27 @@ document.getElementById("generateTabBtn").addEventListener("click", () => {
     <button>Generate</button>
   `;
 });
+
+let selectedString = null;
+
+document.querySelectorAll('.tab-row').forEach(row => {
+  row.addEventListener('click', () => {
+    document.querySelectorAll('.tab-row').forEach(r => r.classList.remove('selected'));
+    row.classList.add('selected');
+    selectedString = row.getAttribute('data-string');
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (!selectedString) return;
+  if (!e.key.match(/^[0-9]$/)) return;
+
+  const row = document.querySelector(`.tab-row[data-string="${selectedString}"]`);
+  const currentText = row.textContent;
+  const insertIndex = currentText.indexOf('-'); // first dash
+  if (insertIndex !== -1) {
+    const updated = currentText.slice(0, insertIndex) + e.key + currentText.slice(insertIndex + 1);
+    row.textContent = updated;
+  }
+});
+
