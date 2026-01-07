@@ -1,15 +1,18 @@
+// ------------------------------
+// VIEW SWITCHING
+// ------------------------------
+
 const navItems = document.querySelectorAll('.nav-item');
 const views = document.querySelectorAll('.view');
 
 navItems.forEach(item => {
   item.addEventListener('click', () => {
     const target = item.getAttribute('data-view');
-
     views.forEach(v => v.classList.add('hidden'));
     document.getElementById(`view-${target}`).classList.remove('hidden');
   });
 });
-// Shortcut click logic
+
 const shortcutCards = document.querySelectorAll('.shortcut-card');
 
 shortcutCards.forEach(card => {
@@ -22,7 +25,10 @@ shortcutCards.forEach(card => {
   });
 });
 
+// ------------------------------
 // GENRE SEARCH FILTER
+// ------------------------------
+
 const genreSearch = document.getElementById('genre-search');
 const genreDropdown = document.getElementById('genre-dropdown');
 
@@ -38,47 +44,55 @@ if (genreSearch) {
   });
 }
 
-// SONG SEARCH BAR LOGIC
+// ------------------------------
+// SONG SEARCH BAR
+// ------------------------------
+
 const songSearch = document.getElementById('songSearch');
 const songList = document.getElementById('songList');
 
-songSearch.addEventListener('input', () => {
-  // This is placeholder logic — real filtering will come when songs are added
-  const query = songSearch.value.toLowerCase();
-  const songs = songList.querySelectorAll('.song-item');
+if (songSearch) {
+  songSearch.addEventListener('input', () => {
+    const query = songSearch.value.toLowerCase();
+    const songs = songList.querySelectorAll('.song-item');
 
-  songs.forEach(song => {
-    const title = song.textContent.toLowerCase();
-    song.style.display = title.includes(query) ? 'block' : 'none';
+    songs.forEach(song => {
+      const title = song.textContent.toLowerCase();
+      song.style.display = title.includes(query) ? 'block' : 'none';
+    });
   });
-});
+}
 
+// ------------------------------
 // MODE SWITCHING
+// ------------------------------
+
 const simpleBtn = document.getElementById("simpleMode");
 const customBtn = document.getElementById("customMode");
 
 const simpleContent = document.getElementById("simpleContent");
 const customContent = document.getElementById("customContent");
 
-// Switch to Simple Mode
-simpleBtn.addEventListener("click", () => {
-  simpleBtn.classList.add("mode-active");
-  customBtn.classList.remove("mode-active");
+if (simpleBtn && customBtn) {
+  simpleBtn.addEventListener("click", () => {
+    simpleBtn.classList.add("mode-active");
+    customBtn.classList.remove("mode-active");
+    simpleContent.classList.remove("hidden");
+    customContent.classList.add("hidden");
+  });
 
-  simpleContent.classList.remove("hidden");
-  customContent.classList.add("hidden");
-});
+  customBtn.addEventListener("click", () => {
+    customBtn.classList.add("mode-active");
+    simpleBtn.classList.remove("mode-active");
+    customContent.classList.remove("hidden");
+    simpleContent.classList.add("hidden");
+  });
+}
 
-// Switch to Custom Mode
-customBtn.addEventListener("click", () => {
-  customBtn.classList.add("mode-active");
-  simpleBtn.classList.remove("mode-active");
-
-  customContent.classList.remove("hidden");
-  simpleContent.classList.add("hidden");
-});
-
+// ------------------------------
 // MOCK SONG GENERATOR
+// ------------------------------
+
 function mockGenerateSong({ title, vibe, lyrics, instrumental }) {
   const id = Date.now();
 
@@ -88,7 +102,7 @@ function mockGenerateSong({ title, vibe, lyrics, instrumental }) {
     vibe: vibe || "Unknown vibe",
     lyrics: lyrics || "",
     instrumental: instrumental || false,
-    audioUrl: "placeholder.mp3", // your fake audio file
+    audioUrl: "placeholder.mp3",
     createdAt: new Date().toLocaleString()
   };
 }
@@ -96,7 +110,6 @@ function mockGenerateSong({ title, vibe, lyrics, instrumental }) {
 function addSongToList(song) {
   const list = document.getElementById("songList");
 
-  // Remove "Create your first song" message
   const emptyMsg = list.querySelector(".empty-message");
   if (emptyMsg) emptyMsg.remove();
 
@@ -140,97 +153,14 @@ document.getElementById("createSongBtnCustom").addEventListener("click", () => {
   addSongToList(song);
 });
 
-window.addEventListener("DOMContentLoaded", () => {
-  const createBtn = document.getElementById("createSongBtn");
-
-  if (!createBtn) {
-    console.error("createSongBtn not found");
-    return;
-  }
-
-  createBtn.addEventListener("click", () => {
-    console.log("Create button clicked");
-
-    const userPrompt = document.getElementById("vibeInput").value;
-
-    fetch("https://ss-backend-sp3m.onrender.com/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: userPrompt })
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log("Full response:", data);
-
-        const audioUrl =
-          data.audio_url ||
-          data.audio ||
-          data.file ||
-          (data.files && data.files[0]) ||
-         (data.assets && data.assets.audio) ||
-          null;
-
-        if (!audioUrl) {
-          console.error("No audio URL returned from backend");
-          return;
-        }
-
-        const songList = document.getElementById("songList");
-        songList.innerHTML = `
-          <p>Vibe: ${userPrompt}</p>
-          <audio controls>
-            <source src="${audioUrl}" type="audio/mpeg">
-          </audio>
-          <p>${new Date().toLocaleString()}</p>
-        `;
-      })
-
-        <audio controls>
-          <source src="${data.audio_url}" type="audio/mpeg">
-        </audio>
-        <p>${new Date().toLocaleString()}</p>
-      `;
-    })
-    .catch(err => {
-      console.error("Error generating song:", err);
-    });
-});
-
-import { GuitarPro } from "@tonejs/guitarpro";
-
-async function initTabs() {
-  const input = document.getElementById("gpInput");
-  const tabContainer = document.getElementById("tabContainer");
-
-  input.addEventListener("change", async (e) => {
-    const file = e.target.files[0];
-    const arrayBuffer = await file.arrayBuffer();
-
-    const gp = await GuitarPro.parse(arrayBuffer);
-
-    console.log(gp); // This shows all tracks, notes, measures, techniques
-
-    renderTab(gp, tabContainer);
-    setupPlayback(gp);
-  });
-}
-
-function setupPlayback(gp) {
-  const track = gp.tracks[0]; // guitar track
-  const synth = new Tone.PolySynth().toDestination();
-
-  const part = new Tone.Part((time, note) => {
-    synth.triggerAttackRelease(note.pitch, note.duration, time);
-    highlightNote(note);
-  }, convertToToneEvents(track));
-
-  part.start(0);
-}
+// ------------------------------
+// TABS SECTION BUTTONS
+// ------------------------------
 
 document.getElementById("createTabBtn").addEventListener("click", () => {
   document.getElementById("tabWorkspace").innerHTML = `
     <h2>Manual Tab Editor</h2>
-    <textarea rows="10" cols="80" placeholder="Type your tab here..."></textarea>
+    <textarea rows="12" cols="80" placeholder="Type your tab here..."></textarea>
   `;
 });
 
@@ -241,5 +171,3 @@ document.getElementById("generateTabBtn").addEventListener("click", () => {
     <button>Generate</button>
   `;
 });
-
-
