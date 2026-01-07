@@ -172,17 +172,35 @@
     </section>
 
     <!-- TABS -->
-    <section id="view-tabs" class="view hidden">
-      <h1>🎸 Tabs</h1>
-      <p>Create or generate guitar tabs from audio or YouTube links.</p>
+   <section id="view-tabs" class="view hidden">
+  <h1>🎸 Transcribe tabs instantly with AI</h1>
+  <p class="subtitle">
+    Paste a YouTube link and let AI create accurate guitar, bass, and drum tabs in minutes.
+  </p>
 
-      <div class="tab-actions">
-        <button id="createTabBtn">Create New Tab</button>
-        <button id="generateTabBtn">Generate from YouTube or Audio</button>
-      </div>
+  <div class="transcription-flow">
+    <div class="step">🎥 YouTube link</div>
+    <div class="arrow">→</div>
+    <div class="step">🤖 Rapid AI transcription</div>
+    <div class="arrow">→</div>
+    <div class="step">📄 Accurate tab</div>
+  </div>
 
-      <div id="tabWorkspace"></div>
-    </section>
+  <div class="input-area">
+    <input type="text" placeholder="Paste YouTube link..." class="link-input">
+    <a href="#" class="upload-link">or upload an audio file</a>
+    <p class="privacy-note">Your tab remains private until you choose to share it</p>
+  </div>
+
+  <div class="action-buttons">
+    <button class="btn green" id="generateTabBtn">Transcribe tab with AI</button>
+    <span>OR</span>
+    <button class="btn black" id="createTabBtn">Create blank tab</button>
+  </div>
+
+  <div id="tabWorkspace"></div>
+</section>
+
 
   </main>
 
