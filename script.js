@@ -246,4 +246,19 @@ function setupPlayback(gp) {
   part.start(0);
 }
 
+document.getElementById("createTabBtn").addEventListener("click", () => {
+  document.getElementById("tabWorkspace").innerHTML = `
+    <h2>Manual Tab Editor</h2>
+    <textarea rows="10" cols="80" placeholder="Type your tab here..."></textarea>
+  `;
+});
+
+document.getElementById("generateTabBtn").addEventListener("click", () => {
+  document.getElementById("tabWorkspace").innerHTML = `
+    <h2>Generate Tab</h2>
+    <input type="text" placeholder="Paste YouTube link or upload audio">
+    <button>Generate</button>
+  `;
+});
+
 
