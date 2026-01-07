@@ -167,7 +167,7 @@ window.addEventListener("DOMContentLoaded", () => {
           data.audio ||
           data.file ||
           (data.files && data.files[0]) ||
-          (data.assets && data.assets.audio) ||
+         (data.assets && data.assets.audio) ||
           null;
 
         if (!audioUrl) {
@@ -184,40 +184,7 @@ window.addEventListener("DOMContentLoaded", () => {
           <p>${new Date().toLocaleString()}</p>
         `;
       })
-      .catch(err => {
-        console.error("Error generating song:", err);
-      });
-  });
-});
 
-  const shortcutCards = document.querySelectorAll('.shortcut-card');
-
-  shortcutCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const target = card.getAttribute('data-view');
-      if (!target) return;
-
-      views.forEach(v => v.classList.add('hidden'));
-      document.getElementById(`view-${target}`).classList.remove('hidden');
-    });
-  });
-});
-
-
-  const userPrompt = document.getElementById("vibeInput").value;
-
-  fetch("https://ss-backend-sp3m.onrender.com/api/generate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt: userPrompt })
-  })
-    .then(res => res.json())
-    .then(data => {
-console.log("Full response:", data);
-
-      const songList = document.getElementById("songList");
-      songList.innerHTML = `
-        <p>Vibe: ${userPrompt}</p>
         <audio controls>
           <source src="${data.audio_url}" type="audio/mpeg">
         </audio>
