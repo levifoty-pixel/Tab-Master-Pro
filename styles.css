@@ -338,3 +338,9 @@ h2, h3, p, label, input, textarea {
   background-color: red;
   border-radius: 2px;
 }
+
+.tab-row.selected {
+  background-color: #222;
+  color: #ff4d4d;
+}
+
