@@ -32,19 +32,12 @@
       <span class="icon">🔁</span>
       <span>File Converter</span>
     </div>
+
+    <div class="nav-item" data-view="tabs">
+      <span class="icon">📄</span>
+      <span>Tabs</span>
+    </div>
   </nav>
-
- <section id="view-tabs" class="view hidden">
-  <h1>🎸 Tabs</h1>
-  <p>Create or generate guitar tabs from audio or YouTube links.</p>
-
-  <div class="tab-actions">
-    <button id="createTabBtn">Create New Tab</button>
-    <button id="generateTabBtn">Generate from YouTube or Audio</button>
-  </div>
-
-  <div id="tabWorkspace"></div>
-</section>  
 
   <!-- MAIN CONTENT -->
   <main>
@@ -54,107 +47,105 @@
       <h1>Welcome to Song Studio</h1>
       <p>Your creative hub for music generation, stems, conversion, and more.</p>
 
-   <div class="shortcut-grid">
-  <div class="shortcut-card" data-view="converter">🎤 Stem Separator</div>
-  <div class="shortcut-card" data-view="create">🎶 Song Generator</div>
-  <div class="shortcut-card" data-view="converter">🔁 File Converter</div>
-  <div class="shortcut-card">🎛️ DAW</div>
-<div class="shortcut-card" data-view="tabs">📄 Tabs</div>
-</div>
+      <div class="shortcut-grid">
+        <div class="shortcut-card" data-view="converter">🎤 Stem Separator</div>
+        <div class="shortcut-card" data-view="create">🎶 Song Generator</div>
+        <div class="shortcut-card" data-view="converter">🔁 File Converter</div>
+        <div class="shortcut-card">🎛️ DAW</div>
+        <div class="shortcut-card" data-view="tabs">📄 Tabs</div>
+      </div>
     </section>
-<!-- CREATE -->
-<section id="view-create" class="view hidden">
-  <h2>Create a Song</h2>
 
-  <div class="create-layout">
+    <!-- CREATE -->
+    <section id="view-create" class="view hidden">
+      <h2>Create a Song</h2>
 
-    <!-- LEFT SIDE: SONG GENERATOR -->
-    <div class="create-left">
-      <div class="panel">
-        <h3>Song Generator</h3>
-        <p>Choose your mode:</p>
+      <div class="create-layout">
 
-        <div class="mode-buttons">
-          <button id="simpleMode" class="btn mode-active">Simple</button>
-          <button id="customMode" class="btn">Custom</button>
-        </div>
+        <!-- LEFT SIDE -->
+        <div class="create-left">
+          <div class="panel">
+            <h3>Song Generator</h3>
+            <p>Choose your mode:</p>
 
-        <!-- SIMPLE MODE -->
-        <div id="simpleContent">
-          <textarea id="vibeInput" placeholder="Describe your song idea..."></textarea>
+            <div class="mode-buttons">
+              <button id="simpleMode" class="btn mode-active">Simple</button>
+              <button id="customMode" class="btn">Custom</button>
+            </div>
 
-          <div class="action-row">
-            <button class="btn" id="createSongBtn">Create</button>
-            <button class="btn" id="instrumentalBtn">Instrumental</button>
+            <!-- SIMPLE MODE -->
+            <div id="simpleContent">
+              <textarea id="vibeInput" placeholder="Describe your song idea..."></textarea>
+
+              <div class="action-row">
+                <button class="btn" id="createSongBtn">Create</button>
+                <button class="btn" id="instrumentalBtn">Instrumental</button>
+              </div>
+            </div>
+
+            <!-- CUSTOM MODE -->
+            <div id="customContent" class="hidden">
+              <label>Song Title:</label>
+              <input type="text" id="songTitle">
+
+              <label>Lyrics:</label>
+              <textarea id="lyricsInput"></textarea>
+
+              <label>Vibe / Mood:</label>
+              <input type="text" id="customVibe">
+
+              <div class="genre-selector">
+                <label for="genre-search">Search Genre:</label>
+                <input type="text" id="genre-search">
+
+                <select id="genre-dropdown" size="8">
+                  <option>Pop</option>
+                  <option>Rock</option>
+                  <option>Hip Hop</option>
+                  <option>Jazz</option>
+                  <option>Classical</option>
+                  <option>Electronic</option>
+                  <option>Country</option>
+                  <option>Reggae</option>
+                  <option>Funk</option>
+                  <option>Lo-fi</option>
+                  <option>Ambient</option>
+                  <option>Metal</option>
+                  <option>R&B</option>
+                  <option>Trap</option>
+                  <option>House</option>
+                  <option>Techno</option>
+                  <option>Indie</option>
+                  <option>Folk</option>
+                  <option>Experimental</option>
+                  <option>Orchestral</option>
+                </select>
+              </div>
+
+              <div class="action-row">
+                <button class="btn" id="createSongBtnCustom">Create</button>
+                <button class="btn" id="instrumentalBtnCustom">Instrumental</button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- CUSTOM MODE -->
-        <div id="customContent" class="hidden">
+        <!-- RIGHT SIDE -->
+        <div class="create-right">
+          <input type="text" id="songSearch" placeholder="Search songs..." class="search-bar">
 
-          <label>Song Title:</label>
-          <input type="text" id="songTitle" placeholder="Enter a title...">
-
-          <label>Lyrics:</label>
-          <textarea id="lyricsInput" placeholder="Paste or write lyrics..."></textarea>
-
-          <label>Vibe / Mood:</label>
-          <input type="text" id="customVibe" placeholder="Dreamy, dark, cinematic...">
-
-          <div class="genre-selector">
-            <label for="genre-search">Search Genre:</label>
-            <input type="text" id="genre-search" placeholder="Type to filter genres...">
-
-            <select id="genre-dropdown" size="8">
-              <option>Pop</option>
-              <option>Rock</option>
-              <option>Hip Hop</option>
-              <option>Jazz</option>
-              <option>Classical</option>
-              <option>Electronic</option>
-              <option>Country</option>
-              <option>Reggae</option>
-              <option>Funk</option>
-              <option>Lo-fi</option>
-              <option>Ambient</option>
-              <option>Metal</option>
-              <option>R&B</option>
-              <option>Trap</option>
-              <option>House</option>
-              <option>Techno</option>
-              <option>Indie</option>
-              <option>Folk</option>
-              <option>Experimental</option>
-              <option>Orchestral</option>
-            </select>
+          <div id="songList" class="song-list">
+            <p class="empty-message">Create your first song</p>
           </div>
-
-          <div class="action-row">
-            <button class="btn" id="createSongBtnCustom">Create</button>
-            <button class="btn" id="instrumentalBtnCustom">Instrumental</button>
-          </div>
-
         </div>
+
       </div>
-    </div>
+    </section>
 
-    <!-- RIGHT SIDE: SEARCH + SONG LIST -->
-    <div class="create-right">
-      <input type="text" id="songSearch" placeholder="Search songs..." class="search-bar">
-
-      <div id="songList" class="song-list">
-        <p class="empty-message">Create your first song</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-    <!-- SONG STUDIO -->
+    <!-- STUDIO -->
     <section id="view-studio" class="view hidden">
       <h2>Your Song Studio</h2>
-      <p>Generated audio tracks will appear here, stacked horizontally like Suno.</p>
+      <p>Generated audio tracks will appear here.</p>
 
       <div class="track-container">
         <div class="track">Track 1</div>
@@ -180,23 +171,21 @@
       </div>
     </section>
 
+    <!-- TABS -->
+    <section id="view-tabs" class="view hidden">
+      <h1>🎸 Tabs</h1>
+      <p>Create or generate guitar tabs from audio or YouTube links.</p>
+
+      <div class="tab-actions">
+        <button id="createTabBtn">Create New Tab</button>
+        <button id="generateTabBtn">Generate from YouTube or Audio</button>
+      </div>
+
+      <div id="tabWorkspace"></div>
+    </section>
+
   </main>
 
   <script src="script.js"></script>
 </body>
 </html>
-
-<section id="tabs" class="view hidden">
-  <h2>Guitar Pro Tab Viewer</h2>
-
-  <input type="file" id="gpInput" accept=".gp3,.gp4,.gp5,.gpx">
-
-  <div id="tabContainer"></div>
-
-  <div id="controls">
-    <button id="playBtn">Play</button>
-    <button id="pauseBtn">Pause</button>
-    <button id="stopBtn">Stop</button>
-  </div>
-</section>
-
